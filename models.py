@@ -1,7 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String
 
-# Inicializa la base de datos
 db = SQLAlchemy()
 
 class Usuario(db.Model):
@@ -15,8 +14,7 @@ class Usuario(db.Model):
     def __repr__(self):
         return f'<Usuario {self.nombre}>'
 
-# Función para inicializar la base de datos
 def init_db(app):
     db.init_app(app)
     with app.app_context():
-        db.create_all()  # Crea las tablas en la base de datos
+        db.create_all()  

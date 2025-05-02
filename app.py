@@ -3,17 +3,15 @@ from flask import Flask, redirect, url_for, session
 from authlib.integrations.flask_client import OAuth
 from dotenv import load_dotenv
 
-load_dotenv()  # Cargar variables de entorno desde .env
+load_dotenv()  
 
 app = Flask(__name__)
 
-# Configura la clave secreta de Flask y las variables de Auth0
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'secret_key')
 app.config['SESSION_COOKIE_NAME'] = 'your_session_cookie'
 
 oauth = OAuth(app)
 
-# Configurar Auth0
 auth0 = oauth.register(
     'auth0',
     client_id=os.environ['AUTH0_CLIENT_ID'],
@@ -42,7 +40,7 @@ def login():
 @app.route('/callback')
 def callback():
     token = auth0.authorize_access_token()
-    userinfo = auth0.userinfo(token=token)  # ✅ Esto es lo correcto
+    userinfo = auth0.userinfo(token=token)  
     session['user'] = userinfo
     return redirect('/')
 
